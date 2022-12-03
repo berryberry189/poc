@@ -8,6 +8,7 @@ class TestController {
 
     @GetMapping("/api/test")
     fun test(): String {
+
         return "test success"
     }
 
