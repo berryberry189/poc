@@ -17,7 +17,7 @@ hooks:                             # 배포 이후에 수행할 스크립트를 
     - location: scripts/stop.sh
       timeout: 60
       runas: ubuntu
-    ApplicationStart:
-      - location: scripts/start.sh
-        timeout: 60
-        runas: ubuntu
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 60
+      runas: ubuntu
