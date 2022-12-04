@@ -14,10 +14,6 @@ permissions:                       # files 섹션에서 복사한 파일에 대�
 
 hooks:                             # 배포 이후에 수행할 스크립트를 지정
   AfterInstall:
-    - location: scripts/stop.sh
-      timeout: 60
-      runas: ubuntu
-  ApplicationStart:
-    - location: scripts/start.sh
+    - location: scripts/deploy.sh
       timeout: 60
       runas: ubuntu
