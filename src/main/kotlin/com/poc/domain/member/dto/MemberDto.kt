@@ -14,7 +14,12 @@ data class MemberDto(
     companion object {
         fun fromEntity(member: Member): MemberDto {
             return member.run {
-                MemberDto(memberId = id, email = email, password = password, createdAt = createdAt, updatedAt = updatedAt)
+                MemberDto(
+                    memberId = id,
+                    email = email,
+                    password = password,
+                    createdAt = createdAt,
+                    updatedAt = updatedAt)
             }
         }
     }
