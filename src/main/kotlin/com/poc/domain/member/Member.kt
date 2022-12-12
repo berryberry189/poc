@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "member")
-class Member(email: String, password: String) : BaseTime() {
+class Member(email: String, password: String): BaseTime() {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
