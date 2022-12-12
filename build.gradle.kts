@@ -7,6 +7,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+	kotlin("kapt") version "1.7.10"
 }
 
 group = "com"
@@ -43,6 +44,13 @@ dependencies {
 	implementation("org.hibernate.validator:hibernate-validator:6.1.2.Final")
 	implementation("org.glassfish:jakarta.el:3.0.3")
 
+	// querydsl
+	implementation("com.querydsl:querydsl-jpa:5.0.0")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+
+	// s3
+	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
+
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
@@ -63,3 +71,4 @@ tasks.withType<Test> {
 tasks.getByName<Jar>("jar") {
 	enabled = false
 }
+
