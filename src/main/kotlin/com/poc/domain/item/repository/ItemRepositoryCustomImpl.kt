@@ -20,14 +20,13 @@ class ItemRepositoryCustomImpl (
 
     override fun getItemList(itemCategory: ItemCategory?, pageRequest: PageRequest): Page<ItemProjectionDto> {
         val content = queryFactory
-            //.select(item)
             .select(
                 Projections.constructor(
                     ItemProjectionDto::class.java,
                     item.id.`as`("itemId"),
                     item.itemCategory,
-                    item.fileUrl,
                     item.originName,
+                    item.fileUrl,
                     item.createdAt,
                     item.updatedAt
             ))
