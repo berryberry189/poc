@@ -2,7 +2,9 @@ package com.poc.domain.item.repository
 
 import com.poc.domain.item.Item
 import com.poc.domain.item.QItem.item
+import com.poc.domain.item.dto.ItemProjectionDto
 import com.poc.domain.item.enum_type.ItemCategory
+import com.querydsl.core.types.Projections
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQuery
 import com.querydsl.jpa.impl.JPAQueryFactory
@@ -16,9 +18,19 @@ class ItemRepositoryCustomImpl (
     val queryFactory: JPAQueryFactory
 ) : ItemRepositoryCustom{
 
-    override fun getItemList(itemCategory: ItemCategory?, pageRequest: PageRequest): Page<Item> {
+    override fun getItemList(itemCategory: ItemCategory?, pageRequest: PageRequest): Page<ItemProjectionDto> {
         val content = queryFactory
-            .select(item)
+            //.select(item)
+            .select(
+                Projections.constructor(
+                    ItemProjectionDto::class.java,
+                    item.id.`as`("itemId"),
+                    item.itemCategory,
+                    item.fileUrl,
+                    item.originName,
+                    item.createdAt,
+                    item.updatedAt
+            ))
             .from(item)
             .where(searchItemCategory(itemCategory))
             .offset(pageRequest.offset)

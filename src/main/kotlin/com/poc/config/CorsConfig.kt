@@ -14,6 +14,7 @@ class CorsConfig : WebMvcConfigurer {
             .allowedOrigins("http://138.2.117.65")
             .allowedMethods(
                 HttpMethod.GET.name,
+                HttpMethod.HEAD.name,
                 HttpMethod.POST.name,
                 HttpMethod.PUT.name,
                 HttpMethod.DELETE.name
