@@ -20,7 +20,7 @@ class MemberController {
     private lateinit var memberService: MemberService
 
     @ApiOperation(value = "회원 저장")
-    @PostMapping("/")
+    @PostMapping("")
     fun createMember(@Valid @RequestBody saveMemberDto: SaveMemberDto) : ResponseEntity<MemberDto> {
         return ResponseEntity<MemberDto>(memberService.saveMember(saveMemberDto), HttpStatus.OK)
     }
