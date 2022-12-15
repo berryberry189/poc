@@ -1,11 +1,11 @@
 package com.poc.domain.item.repository
 
-import com.poc.domain.item.Item
 import com.poc.domain.item.QItem.item
 import com.poc.domain.item.dto.ItemProjectionDto
-import com.poc.domain.item.enum_type.ItemCategory
+import com.poc.domain.item_category.QItemCategory
+import com.poc.domain.item_category.QItemCategory.itemCategory
+import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.Projections
-import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQuery
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.data.domain.Page
@@ -18,20 +18,27 @@ class ItemRepositoryCustomImpl (
     val queryFactory: JPAQueryFactory
 ) : ItemRepositoryCustom{
 
-    override fun getItemList(itemCategory: ItemCategory?, pageRequest: PageRequest): Page<ItemProjectionDto> {
+    val parentItemCategory = QItemCategory("parentItemCategory")
+
+    override fun getItemList(itemCategoryId: Long?, pageRequest: PageRequest): Page<ItemProjectionDto> {
         val content = queryFactory
             .select(
                 Projections.constructor(
                     ItemProjectionDto::class.java,
                     item.id.`as`("itemId"),
-                    item.itemCategory,
+                    itemCategory.id.`as`("itemCategoryId"),
+                    itemCategory.name.`as`("itemCategoryName"),
+                    parentItemCategory.id.`as`("parentItemCategoryId"),
+                    parentItemCategory.name.`as`("parentItemCategoryName"),
                     item.originName,
                     item.fileUrl,
                     item.createdAt,
                     item.updatedAt
             ))
             .from(item)
-            .where(searchItemCategory(itemCategory))
+            .innerJoin(item.itemCategory, itemCategory)
+            .leftJoin(itemCategory.parentItemCategory, parentItemCategory)
+            .where(searchItemCategory(itemCategoryId))
             .offset(pageRequest.offset)
             .limit(pageRequest.pageSize.toLong())
             .fetch()
@@ -39,19 +46,20 @@ class ItemRepositoryCustomImpl (
         val countQuery: JPAQuery<Long> = queryFactory
             .select(item.count())
             .from(item)
-            .where(searchItemCategory(itemCategory))
+            .where(searchItemCategory(itemCategoryId))
 
         return PageableExecutionUtils.getPage(
             content, pageRequest
         ) { countQuery.fetchOne()!! }
     }
 
-    fun searchItemCategory(itemCategory: ItemCategory?) : BooleanExpression? {
-        return if(itemCategory == null) {
-            null
-        } else {
-            item.itemCategory.eq(itemCategory)
-        }
+    fun searchItemCategory(itemCategoryId: Long?) : BooleanBuilder {
+        val builder = BooleanBuilder()
+
+        itemCategoryId?.let { builder.or(itemCategory.id.eq(it)) }
+        itemCategoryId?.let { builder.or(parentItemCategory.id.eq(it)) }
+
+        return builder
     }
 
 

@@ -1,11 +1,13 @@
 package com.poc.domain.item.dto
 
-import com.poc.domain.item.enum_type.ItemCategory
 import java.time.LocalDateTime
 
 data class ItemProjectionDto (
     val itemId: Long,
-    val itemCategory: ItemCategory,
+    val itemCategoryId: Long? = null,
+    val itemCategoryName: String,
+    val parentItemCategoryId: Long? = null,
+    val parentItemCategoryName: String?,
     val originName: String,
     val fileUrl: String,
     val createdAt: LocalDateTime?,
