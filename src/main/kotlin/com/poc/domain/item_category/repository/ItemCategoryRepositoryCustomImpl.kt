@@ -24,7 +24,8 @@ class ItemCategoryRepositoryCustomImpl (
                     itemCategory.id.`as`("itemCategoryId"),
                     itemCategory.name,
                     parentItemCategory.id.`as`("parentItemCategoryId"),
-                    parentItemCategory.name.`as`("parentName")
+                    parentItemCategory.name.`as`("parentName"),
+                    itemCategory.zIndex
             ))
             .from(itemCategory)
             .leftJoin(itemCategory.parentItemCategory, parentItemCategory)

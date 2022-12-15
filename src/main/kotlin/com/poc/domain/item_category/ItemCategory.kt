@@ -16,5 +16,7 @@ class ItemCategory(parentItemCategory: ItemCategory?, name: String) {
 
     var name: String = name
 
+    var zIndex: Integer? = null;
+
 
 }

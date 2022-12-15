@@ -1,7 +1,7 @@
 package com.poc.domain.item
 
 import com.poc.common.entity.BaseTime
-import com.poc.domain.item.enum_type.ItemCategory
+import com.poc.domain.item_category.ItemCategory
 import javax.persistence.*
 
 @Entity
@@ -11,9 +11,13 @@ class Item(itemCategory: ItemCategory, originName: String, fileUrl: String): Bas
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-    @Enumerated(EnumType.STRING)
-    var itemCategory: ItemCategory =itemCategory
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_category_id", nullable = false)
+    var itemCategory: ItemCategory = itemCategory
+
     var originName: String = originName
+
     var fileUrl: String = fileUrl
 
 }

@@ -4,5 +4,6 @@ data class ItemCategoryProjectionDto (
     val itemCategoryId: Long,
     val name: String,
     val parentItemCategoryId: Long?,
-    val parentName: String?
+    val parentName: String?,
+    val zIndex: Integer?
 )
