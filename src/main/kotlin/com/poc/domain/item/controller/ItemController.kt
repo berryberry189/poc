@@ -24,8 +24,8 @@ class ItemController {
     @ApiOperation(value = "아이템 저장")
     @PostMapping("")
     fun saveItem(@RequestPart(value = "file", required = true) file: MultipartFile,
-                 @RequestParam itemCategory: ItemCategory): ResponseEntity<ItemDto> {
-        return ResponseEntity<ItemDto>(itemService.upload(file, itemCategory), HttpStatus.OK)
+                 @RequestParam itemCategoryId: Long): ResponseEntity<ItemDto> {
+        return ResponseEntity<ItemDto>(itemService.upload(file, itemCategoryId), HttpStatus.OK)
 
     }
 
@@ -39,10 +39,10 @@ class ItemController {
     @ApiOperation(value = "아이템 목록")
     @GetMapping("")
     fun itemList(
-        @RequestParam(value = "itemCategory", required = false) itemCategory: ItemCategory?,
+        @RequestParam(value = "itemCategoryId", required = false) itemCategoryId: Long?,
         @RequestParam(value = "page", required = true, defaultValue = "1") page : Int,
         @RequestParam(value = "size", required = true, defaultValue = "10") size : Int
     ) : ResponseEntity<ListItemDto> {
-        return ResponseEntity<ListItemDto>(itemService.getItemList(itemCategory, PageRequest.of(page-1, size)), HttpStatus.OK)
+        return ResponseEntity<ListItemDto>(itemService.getItemList(itemCategoryId, PageRequest.of(page-1, size)), HttpStatus.OK)
     }
 }
