@@ -6,6 +6,7 @@ data class ItemProjectionDto (
     val itemId: Long,
     val itemCategoryId: Long? = null,
     val itemCategoryName: String,
+    val zIndex: Integer?,
     val parentItemCategoryId: Long? = null,
     val parentItemCategoryName: String?,
     val originName: String,

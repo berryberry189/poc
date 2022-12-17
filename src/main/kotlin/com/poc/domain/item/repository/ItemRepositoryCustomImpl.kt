@@ -29,6 +29,7 @@ class ItemRepositoryCustomImpl (
                     item.id.`as`("itemId"),
                     itemCategory.id.`as`("itemCategoryId"),
                     itemCategory.name.`as`("itemCategoryName"),
+                    itemCategory.zIndex,
                     parentItemCategory.id.`as`("parentItemCategoryId"),
                     parentItemCategory.name.`as`("parentItemCategoryName"),
                     item.originName,

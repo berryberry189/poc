@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.util.MultiValueMap
 import org.springframework.web.multipart.MultipartFile
+import java.util.*
 
 @Service
 class ItemService {
@@ -78,6 +78,52 @@ class ItemService {
         }
 
         return true
+    }
+
+
+    @Transactional(readOnly = true)
+    fun getRandomItemList(): List<ItemDto> {
+        var randomItemList = ArrayList<ItemDto>()
+
+        var random = Random()
+        var randomNum = 0
+
+        // 얼굴 1개
+        val faceList = itemRepository.findAllByItemCategory_Id(1)
+        if(faceList.isNotEmpty()) {
+            randomNum = random.nextInt(faceList.size)
+            randomItemList.add(ItemDto.fromEntity(faceList[randomNum]))
+        }
+
+        // 앞머리 1개
+        val frontHairList = itemRepository.findAllByItemCategory_Id(5)
+        if(frontHairList.isNotEmpty()) {
+            randomNum = random.nextInt(frontHairList.size)
+            randomItemList.add(ItemDto.fromEntity(frontHairList[randomNum]))
+        }
+
+        // 뒷머리 1개
+        val backHairList  = itemRepository.findAllByItemCategory_Id(6)
+        if(backHairList.isNotEmpty()) {
+            randomNum = random.nextInt(backHairList.size)
+            randomItemList.add(ItemDto.fromEntity(backHairList[randomNum]))
+        }
+
+        // 상의 1개
+        val topList  = itemRepository.findAllByItemCategory_Id(3)
+        if(topList.isNotEmpty()) {
+            randomNum = random.nextInt(topList.size)
+            randomItemList.add(ItemDto.fromEntity(topList[randomNum]))
+        }
+
+        // 아이템 1개
+        val itemList = itemRepository.findAllByItemCategory_IdIn(listOf(7, 8, 9))
+        if(itemList.isNotEmpty()) {
+            randomNum = random.nextInt(itemList.size)
+            randomItemList.add(ItemDto.fromEntity(itemList[randomNum]))
+        }
+
+        return randomItemList
     }
 
 
