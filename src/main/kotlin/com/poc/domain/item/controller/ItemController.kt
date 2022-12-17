@@ -58,4 +58,10 @@ class ItemController {
     fun changeItemList(@Valid @RequestBody changeItemDto: ChangeItemDto): ResponseEntity<Boolean> {
         return ResponseEntity<Boolean>(itemService.changeItemList(changeItemDto), HttpStatus.OK)
     }
+
+    @ApiOperation(value = "랜덤 아이템 목록")
+    @GetMapping("/random")
+    fun randomItemList(): ResponseEntity<List<ItemDto>> {
+        return ResponseEntity<List<ItemDto>>(itemService.getRandomItemList(), HttpStatus.OK)
+    }
 }
