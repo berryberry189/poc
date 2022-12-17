@@ -28,7 +28,6 @@ class ItemController {
     fun saveItem(@RequestPart(value = "file", required = true) file: MultipartFile,
                  @RequestParam itemCategoryId: Long): ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(itemService.upload(file, itemCategoryId), HttpStatus.OK)
-
     }
 
     @ApiOperation(value = "아이템 상세")

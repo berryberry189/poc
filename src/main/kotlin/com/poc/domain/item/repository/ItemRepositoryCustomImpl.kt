@@ -39,6 +39,7 @@ class ItemRepositoryCustomImpl (
             .innerJoin(item.itemCategory, itemCategory)
             .leftJoin(itemCategory.parentItemCategory, parentItemCategory)
             .where(searchItemCategory(itemCategoryId))
+            .orderBy(item.id.desc())
             .offset(pageRequest.offset)
             .limit(pageRequest.pageSize.toLong())
             .fetch()
