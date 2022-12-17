@@ -41,8 +41,8 @@ class ItemController {
     @GetMapping("")
     fun itemList(
         @RequestParam(value = "itemCategoryId", required = false) itemCategoryId: Long?,
-        @RequestParam(value = "page", required = true, defaultValue = "1") page : Int,
-        @RequestParam(value = "size", required = true, defaultValue = "10") size : Int
+        @RequestParam(value = "page", required = true) page : Int,
+        @RequestParam(value = "size", required = true) size : Int
     ) : ResponseEntity<ListItemDto> {
         return ResponseEntity<ListItemDto>(itemService.getItemList(itemCategoryId, PageRequest.of(page-1, size)), HttpStatus.OK)
     }

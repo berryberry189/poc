@@ -5,6 +5,8 @@ import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.util.IOUtils
+import com.poc.exception.BadRequestException
+import com.poc.exception.BaseResponseCode
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
@@ -32,9 +34,13 @@ class S3Service (
 
         val byteArrayIs = ByteArrayInputStream(bytes)
 
-        s3Client.putObject(
-            PutObjectRequest(bucket, dir + fileName, byteArrayIs, objMeta)
-            .withCannedAcl(CannedAccessControlList.PublicRead))
+        try {
+            s3Client.putObject(
+                PutObjectRequest(bucket, dir + fileName, byteArrayIs, objMeta)
+                    .withCannedAcl(CannedAccessControlList.PublicRead))
+        } catch (e: Exception) {
+            throw BadRequestException(BaseResponseCode.ERR_FILE_EXCEPTION, "파일 저장에 실패했습니다.")
+        }
 
         return s3Client.getUrl(bucket, dir + fileName).toString()
     }

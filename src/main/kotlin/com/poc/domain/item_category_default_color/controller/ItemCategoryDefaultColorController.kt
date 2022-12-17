@@ -32,8 +32,8 @@ class ItemCategoryDefaultColorController {
     @ApiOperation(value = "아이템 카테고리 기본 컬러 전체 목록")
     @GetMapping("")
     fun itemCategoryDefaultColorAllList(
-        @RequestParam(value = "page", required = true, defaultValue = "1") page : Int,
-        @RequestParam(value = "size", required = true, defaultValue = "10") size : Int
+        @RequestParam(value = "page", required = true) page : Int,
+        @RequestParam(value = "size", required = true) size : Int
     ): ResponseEntity<ListItemCategoryDefaultColorDto> {
         return ResponseEntity<ListItemCategoryDefaultColorDto>(
             itemCategoryDefaultColorService.getItemCategoryDefaultColorAllList(PageRequest.of(page-1, size)), HttpStatus.OK)
