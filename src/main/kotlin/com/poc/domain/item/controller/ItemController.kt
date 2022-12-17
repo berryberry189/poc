@@ -1,8 +1,9 @@
 package com.poc.domain.item.controller
 
+import com.poc.domain.item.dto.ChangeItemDto
+import com.poc.domain.item.dto.DeleteItemDto
 import com.poc.domain.item.dto.ItemDto
 import com.poc.domain.item.dto.ListItemDto
-import com.poc.domain.item.enum_type.ItemCategory
 import com.poc.domain.item.service.ItemService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/poc/v1/item")
@@ -44,5 +46,17 @@ class ItemController {
         @RequestParam(value = "size", required = true, defaultValue = "10") size : Int
     ) : ResponseEntity<ListItemDto> {
         return ResponseEntity<ListItemDto>(itemService.getItemList(itemCategoryId, PageRequest.of(page-1, size)), HttpStatus.OK)
+    }
+
+    @ApiOperation(value = "아이템 목록 삭제")
+    @DeleteMapping("")
+    fun deleteItemList(@Valid @RequestBody deleteItemDto: DeleteItemDto): ResponseEntity<Boolean> {
+        return ResponseEntity<Boolean>(itemService.deleteItemList(deleteItemDto), HttpStatus.OK)
+    }
+
+    @ApiOperation(value = "아이템 카테고리 변경")
+    @PutMapping("")
+    fun changeItemList(@Valid @RequestBody changeItemDto: ChangeItemDto): ResponseEntity<Boolean> {
+        return ResponseEntity<Boolean>(itemService.changeItemList(changeItemDto), HttpStatus.OK)
     }
 }
