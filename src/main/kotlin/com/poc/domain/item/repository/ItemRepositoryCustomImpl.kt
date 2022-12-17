@@ -20,7 +20,8 @@ class ItemRepositoryCustomImpl (
 
     val parentItemCategory = QItemCategory("parentItemCategory")
 
-    override fun getItemList(itemCategoryId: Long?, pageRequest: PageRequest): Page<ItemProjectionDto> {
+    override
+    fun getItemList(itemCategoryId: Long?, pageRequest: PageRequest): Page<ItemProjectionDto> {
         val content = queryFactory
             .select(
                 Projections.constructor(
