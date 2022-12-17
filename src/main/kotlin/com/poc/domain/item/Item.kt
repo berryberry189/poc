@@ -20,4 +20,7 @@ class Item(itemCategory: ItemCategory, originName: String, fileUrl: String): Bas
 
     var fileUrl: String = fileUrl
 
+    fun changeItemCategory(itemCategory: ItemCategory) {
+        this.itemCategory = itemCategory
+    }
 }
