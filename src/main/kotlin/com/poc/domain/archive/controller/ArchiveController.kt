@@ -32,7 +32,7 @@ class ArchiveController {
     @ApiOperation(value = "아카이브 목록")
     @GetMapping("")
     fun archiveList(
-        @RequestParam(value = "search_keyword", required = false) searchKeyword: String?,
+        @RequestParam(value = "searchKeyword", required = false) searchKeyword: String?,
         @RequestParam(value = "page", required = true) page : Int,
         @RequestParam(value = "size", required = true) size : Int
     ) : ResponseEntity<ListArchiveDto> {
@@ -40,8 +40,8 @@ class ArchiveController {
     }
 
     @ApiOperation(value = "아카이브 상세")
-    @GetMapping("/{archive_id}")
-    fun archive(@PathVariable("archive_id") archiveId : Long) : ResponseEntity<ArchiveDto> {
+    @GetMapping("/{archiveId}")
+    fun archive(@PathVariable("archiveId") archiveId : Long) : ResponseEntity<ArchiveDto> {
         return ResponseEntity<ArchiveDto>(archiveService.getArchive(archiveId), HttpStatus.OK)
     }
 }

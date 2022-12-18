@@ -22,9 +22,9 @@ class ItemCategoryDefaultColorController {
     private lateinit var itemCategoryDefaultColorService: ItemCategoryDefaultColorService
 
     @ApiOperation(value = "아이템 카테고리 기본 컬러 목록")
-    @GetMapping("/{item_category_id}")
+    @GetMapping("/{itemCategoryId}")
     fun itemCategoryDefaultColorList(
-        @PathVariable("item_category_id") itemCategoryId: Long): ResponseEntity<List<ItemCategoryDefaultColorDto>> {
+        @PathVariable("itemCategoryId") itemCategoryId: Long): ResponseEntity<List<ItemCategoryDefaultColorDto>> {
         return ResponseEntity<List<ItemCategoryDefaultColorDto>>(
             itemCategoryDefaultColorService.getItemCategoryDefaultColorList(itemCategoryId), HttpStatus.OK)
     }
@@ -47,9 +47,9 @@ class ItemCategoryDefaultColorController {
     }
 
     @ApiOperation(value = "아이템 카테고리 기본 컬러 삭제")
-    @DeleteMapping("/{item_category_default_color_id}")
+    @DeleteMapping("/{itemCategoryDefaultColorId}")
     fun deleteItemCategoryDefaultColor(
-        @PathVariable("item_category_default_color_id") itemCategoryDefaultColorId: Long
+        @PathVariable("itemCategoryDefaultColorId") itemCategoryDefaultColorId: Long
     ): ResponseEntity<Boolean> {
         return ResponseEntity<Boolean>(
             itemCategoryDefaultColorService.deleteItemCategoryDefaultColor(itemCategoryDefaultColorId), HttpStatus.OK)

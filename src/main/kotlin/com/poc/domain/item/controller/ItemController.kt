@@ -31,8 +31,8 @@ class ItemController {
     }
 
     @ApiOperation(value = "아이템 상세")
-    @GetMapping("/{item_id}")
-    fun item(@PathVariable("item_id") itemId : Long) : ResponseEntity<ItemDto> {
+    @GetMapping("/{itemId}")
+    fun item(@PathVariable("itemId") itemId : Long) : ResponseEntity<ItemDto> {
         return ResponseEntity<ItemDto>(itemService.getItem(itemId), HttpStatus.OK)
     }
 
