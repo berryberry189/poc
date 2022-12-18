@@ -52,7 +52,7 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
 
 	// fasterxml
-	//implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
+	implementation ("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
 
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.mysql:mysql-connector-j")
