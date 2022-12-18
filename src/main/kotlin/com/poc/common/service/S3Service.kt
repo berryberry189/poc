@@ -30,6 +30,7 @@ class S3Service (
         val objMeta = ObjectMetadata()
 
         val bytes = IOUtils.toByteArray(file.inputStream)
+        objMeta.contentType = file.contentType
         objMeta.contentLength = bytes.size.toLong()
 
         val byteArrayIs = ByteArrayInputStream(bytes)
